@@ -18,7 +18,7 @@ async function sendMessage(message: string) {
 
   const stream = createStreamableUI(<div>Loading..</div>);
  
-  const history = getAIState();
+  const history:any = getAIState();
   const response = await generateText({
     model: openai('gpt-4o'),
     messages: [...history, { role: 'user', content: message }],

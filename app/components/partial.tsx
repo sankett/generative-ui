@@ -7,7 +7,8 @@ export function Partial({
   partialObject,
   charttype,
 }: {
-  partialObject?: PartialNotification;
+  partialObject?: PartialNotification,
+  charttype: string,
 }) {
   
   let lineData = {

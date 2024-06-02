@@ -40,7 +40,7 @@ export const LineChart = ( {lineChartData, charttype}) => {
     ],
   };
 
-  const options = {
+  const options:any = {
     responsive: true,
     plugins: {
       legend: {

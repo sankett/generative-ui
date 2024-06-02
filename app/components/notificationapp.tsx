@@ -6,7 +6,7 @@ import { readStreamableValue } from 'ai/rsc';
 
 export function Notificationapp() {
   const [generation, setGeneration] = useState<string>('');
-  const [notify, setNotify] = useState('');
+  const [notify, setNotify] = useState<any>(null);
   const [text, setText] = useState("Gold Price in India per 10 gm duration Jan 2022 to Dec 2022");
 const onTextChange = (e) => {
     setText(e.target.value);

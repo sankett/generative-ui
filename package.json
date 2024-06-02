@@ -12,12 +12,13 @@
     "@ai-sdk/openai": "^0.0.17",
     "ai": "^3.1.18",
     "chart.js": "^4.4.3",
+    "cross-env": "^7.0.3",
+    "nanoid": "^5.0.7",
     "next": "14.2.3",
     "react": "^18",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",
-    "zod": "^3.23.8",
-    "cross-env": "^7.0.3"
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20",

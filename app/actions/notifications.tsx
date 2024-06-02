@@ -5,7 +5,7 @@ import { openai } from '@ai-sdk/openai';
 import { createStreamableValue, createStreamableUI } from 'ai/rsc';
 import { z } from 'zod';
 import { NotificationSchema } from './notificationobject';
-import { Partial } from '../components/partial.tsx';
+import { Partial } from '../components/partial';
 
 export async function Notifications(input: string) {
   'use server';
@@ -24,7 +24,7 @@ export async function Notifications(input: string) {
     //let messages = [{ role: 'user', content: "user1" }, { role: 'assistant', content: "assistant1..." },{ role: 'user', content: "user2" }, { role: 'assistant', content: "" }];
 
     for await (const partialObject of partialObjectStream) {
-      partialComponent.update(<Partial partialObject={partialObject} />);      
+      partialComponent.update(<Partial partialObject={partialObject} charttype='line' />);      
       //messages = [...messages, { role: 'assistant', content: partialObject.notifications }];
       stream.update(partialObject);
     }

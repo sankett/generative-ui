@@ -12,7 +12,7 @@ import { z } from 'zod';
 import { nanoid } from 'nanoid';
 import { streamObject } from 'ai';
 import { NotificationSchema } from './notificationobject';
-import { Partial } from '../components/partial.tsx';
+import { Partial } from '../components/partial';
 import { Product } from '../components/product';
 
 export interface ServerMessage {
@@ -30,7 +30,7 @@ export async function sendMessage1(input: string): Promise<ClientMessage> {
   'use server';
 
   //const partialComponent = createStreamableUI(<div>Loading...</div>);
-  const history = getMutableAIState();
+  const history: any = getMutableAIState();
   const result = await streamUI({
     model: openai('gpt-4o'),
     messages: [...history.get(), { role: 'user', content: input }],
@@ -45,7 +45,7 @@ export async function sendMessage1(input: string): Promise<ClientMessage> {
 
       return <div>{content}-22</div>;
     },
-    
+
     tools: {
       showCategory: {
         description: 'Show the product details for a category.',
@@ -58,13 +58,16 @@ export async function sendMessage1(input: string): Promise<ClientMessage> {
             `https://fakestoreapi.com/products/category/${value}`
           ).then((res) => res.json());
 
-          
-          return(
+          return (
             <div>
-              {response.length > 0 ? <Product productlist={response} /> : `No products found for ${value}` }
+              {response.length > 0 ? (
+                <Product productlist={response} />
+              ) : (
+                `No products found for ${value}`
+              )}
             </div>
           );
-          //return `Here's the category details! ${value}`;
+         
         },
       },
       showWeather: {
@@ -73,18 +76,15 @@ export async function sendMessage1(input: string): Promise<ClientMessage> {
           city: z.string().describe('The city to show the weather for.'),
           unit: z
             .enum(['C', 'F'])
-            .describe('The unit to display the temperature in'),
+            .describe("The unit to display the temperature in"),
         }),
         generate: async ({ city, unit }) => {
-          return (
-            <div>
-              Here's the weather for ${city} - ${unit}
-            </div>
-          );
+          return <div>Heres the weather</div>;
         },
       },
       chart: {
-        description: 'You generate specified output for specified duration and show graph type e.g. line,bar',
+        description:
+          'You generate specified output for specified duration and show graph type e.g. line,bar',
         parameters: z.object({
           charttype: z
             .string()
@@ -92,24 +92,23 @@ export async function sendMessage1(input: string): Promise<ClientMessage> {
         }),
         generate: async function* ({ charttype }) {
           yield (
-            <div style={{ color: 'yellow', fontSize: "16px" }}>
+            <div style={{ color: 'yellow', fontSize: '16px' }}>
               Preparing for {charttype}...
             </div>
           ); // [!code highlight:5]
-          await new Promise(resolve => setTimeout(resolve, 1200));
+          await new Promise((resolve) => setTimeout(resolve, 1200));
           yield (
-            <div style={{ color: 'yellow', fontSize: "16px" }}>
-            Getting data for {charttype}...
-          </div>
+            <div style={{ color: 'yellow', fontSize: '16px' }}>
+              Getting data for {charttype}...
+            </div>
           );
-          await new Promise(resolve => setTimeout(resolve, 1200));
+          await new Promise((resolve) => setTimeout(resolve, 1200));
 
-          const {partialObjectStream } = await streamObject({
+          const { partialObjectStream } = await streamObject({
             model: openai('gpt-4o'),
             system:
               'You generate specified output for specified months in India.',
-            prompt:
-              input,
+            prompt: input,
             schema: NotificationSchema,
           });
           //const arr =[]
@@ -117,8 +116,7 @@ export async function sendMessage1(input: string): Promise<ClientMessage> {
           for await (const partialObject of partialObjectStream) {
             yield (
               <div className="w-full xs:w-4/5 sm:w-4/5 lg:w-2/5">
-                
-                <Partial partialObject={partialObject} charttype={charttype}/>
+                <Partial partialObject={partialObject} charttype={charttype} />
               </div>
             );
             data = partialObject;
@@ -127,8 +125,7 @@ export async function sendMessage1(input: string): Promise<ClientMessage> {
           //partialComponent.done();
           return (
             <div className="w-full xs:w-4/5 sm:w-4/5 lg:w-2/5 ">
-             
-              <Partial partialObject={data} charttype={charttype}/>
+              <Partial partialObject={data} charttype={charttype} />
             </div>
           );
 
@@ -145,7 +142,7 @@ export async function sendMessage1(input: string): Promise<ClientMessage> {
   };
 }
 
-export const AI1 = createAI<ServerMessage[], ClientMessage[]>({
+export const AI1: any = createAI<ServerMessage[], ClientMessage[]>({
   actions: {
     sendMessage1,
   },
