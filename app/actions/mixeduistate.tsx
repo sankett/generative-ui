@@ -36,14 +36,14 @@ export async function sendMessage1(input: string): Promise<ClientMessage> {
     messages: [...history.get(), { role: 'user', content: input }],
     text: ({ content, done }) => {
       if (done) {
-        console.log('done', content);
+        
         history.done((messages: ServerMessage[]) => [
           ...messages,
           { role: 'assistant', content },
         ]);
       }
 
-      return <div>{content}-22</div>;
+      return <div>{content}</div>;
     },
 
     tools: {
@@ -91,18 +91,19 @@ export async function sendMessage1(input: string): Promise<ClientMessage> {
             .describe('The type of the chart, example: line, bar, pie, etc.'),
         }),
         generate: async function* ({ charttype }) {
+          //await new Promise((resolve) => setTimeout(resolve, 100));
           yield (
             <div style={{ color: 'yellow', fontSize: '16px' }}>
-              Preparing for {charttype}...
+              Preparing for {charttype} chart......
             </div>
           ); // [!code highlight:5]
-          await new Promise((resolve) => setTimeout(resolve, 1200));
+          await new Promise((resolve) => setTimeout(resolve, 200));
           yield (
             <div style={{ color: 'yellow', fontSize: '16px' }}>
-              Getting data for {charttype}...
+              Getting data for {charttype} chart...
             </div>
           );
-          await new Promise((resolve) => setTimeout(resolve, 1200));
+          //await new Promise((resolve) => setTimeout(resolve, 1200));
 
           const { partialObjectStream } = await streamObject({
             model: openai('gpt-4o'),

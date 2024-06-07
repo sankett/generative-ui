@@ -14,12 +14,12 @@ export default function Home() {
   return (
     <main className="min-h-screen flex-col items-center justify-between  bg-white dark:bg-slate-800 text-slate-900 dark:text-white">
       <header className="bg-gray-800 w-full py-1 border-b border-white">
-        <span className="text-left text-yellow-500 text-2xl font-bold-100 pl-2 inline w-full">
+        <span className="text-left text-yellow-500 text-sm font-bold-100 pl-2 inline w-full">
           Generative UI Demo with AI
         </span>
         <sup className="text-white ml-3 italic"> By Sanket Terdal</sup>
       </header>
-      <div className="flex-1">
+      <div className="flex-1 border-b border-white">
         <AI1>
           <MixedUIComponent />
         </AI1>

@@ -1,16 +1,45 @@
 'use client';
 //MixedUIComponent
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ClientMessage } from '../actions/mixeduistate';
 import { useActions, useUIState } from 'ai/rsc';
 import { nanoid } from 'nanoid';
 
 export default function Home() {
-  const [input, setInput] = useState<string>('Gold price in India from Jan to Jun 2023');
+  const [input, setInput] = useState<string>('');
   const [conversation, setConversation] = useUIState();
   const { sendMessage1 } = useActions();
   const [selectedValue, setSelectedValue] = useState('');
+  
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    /*const interval = setInterval(() => {
+      
+      if (scrollRef.current) {
+        scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+        
+      }
+    }, 200);
+    
+    return () => clearInterval(interval);*/
+    const scrollElement = scrollRef.current;
+
+    const observer = new MutationObserver(() => {
+      scrollElement.scrollTop = scrollElement.scrollHeight;
+    });
+
+    observer.observe(scrollElement, {
+      childList: true,
+      subtree: true,
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   const handleChange =async  (event) => {
     if(event.target.value === ''){
       return;
@@ -23,33 +52,35 @@ export default function Home() {
     ]);
 
     const message = await sendMessage1(event.target.value);
-
+    
     setConversation((currentConversation: ClientMessage[]) => [
       ...currentConversation,
       message,
     ]);
+    setInput(message.display);
   };
+  console.log("test")
   return (
-    <div className="h-screen bg-gray-900 text-white  flex-col items-center">
-      <div className="bg-gray-800 w-7/8 max-w-8xl   h-5/6 overflow-y-auto ">
+    <div  className="h-screen bg-gray-900 text-white  flex-col items-center">
+      <div  ref={scrollRef} className="bg-gray-800 w-full max-w-8xl   h-5/6 overflow-y-auto ">
         {conversation.map(
           (message: ClientMessage) => (
             console.log('message', typeof message.display),
             (
               <div
                 key={message.id}
-                className={`inline-block px-3 py-2  text-sm           
+                className={`px-3 py-2  text-sm           
           ${
             message.role === 'user' ? 'bg-blue-600' : 'bg-black-600'
-          } w-full max-w-8xl `}
+          } `}
               >
-              <pre>  {message.display}</pre>
+              <pre className='whitespace-pre-wrap'>  {message.display}</pre>
               </div>
             )
           )
         )}
       </div>
-
+      
       <div>
         <div className="w-full max-w-xs  my-2 ">
           
