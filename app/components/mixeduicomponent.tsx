@@ -59,10 +59,10 @@ export default function Home() {
     ]);
     setInput(message.display);
   };
-  console.log("test")
+ 
   return (
     <div  className="h-screen bg-gray-900 text-white  flex-col items-center">
-      <div  ref={scrollRef} className="bg-gray-800 w-full max-w-8xl   h-5/6 overflow-y-auto ">
+      <div  ref={scrollRef} className="bg-gray-800 w-full max-w-8xl   h-4/5 overflow-y-auto ">
         {conversation.map(
           (message: ClientMessage) => (
             console.log('message', typeof message.display),
@@ -74,7 +74,7 @@ export default function Home() {
             message.role === 'user' ? 'bg-blue-600' : 'bg-black-600'
           } `}
               >
-              <pre className='whitespace-pre-wrap'>  {message.display}</pre>
+              <pre className='whitespace-pre-wrap text-yellow-500 text-md font-sans'>  {message.display}</pre>
               </div>
             )
           )
@@ -94,14 +94,16 @@ export default function Home() {
             <option value="" disabled>
               Select an option
             </option>
-            <option value="Longest 5 rivers in world">Longest 5 rivers in world</option>            
+                     
             <option value="Gold price in India from Jan to Jun 2023 draw line chart">Gold price in India from Jan to Jun 2023 draw line chart</option>
-            <option value="Get products for electronics">Get products for electronics</option>
+            <option value="Population in India from Year 2010 to 2023 in billions draw bar chart">Population in India from Year 2010 to 2023 in billions draw bar chart</option>
+            <option value="List out products for men\'s clothing">List out products for mens clothing</option>            
             <option value="Show me products for jewelery">Show me products for jewelery</option>
             <option value="Recipe of Pizza">Recipe of Pizza</option>
-            <option value="List out products for men\'s clothing">List out products for mens clothing</option>
+            <option value="Longest 5 rivers in world">Longest 5 rivers in world</option>  
+            <option value="Get products for electronics">Get products for electronics</option>
             <option value="For women\'s clothing list all products">For womens clothing list all products</option>
-            <option value="Population in India from Year 2010 to 2023 draw bar chart">Population in India from Year 2010 to 2023 draw bar chart</option>
+            
             
           </select>
        

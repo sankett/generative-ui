@@ -60,6 +60,7 @@ export async function sendMessage1(input: string): Promise<ClientMessage> {
 
           return (
             <div>
+              
               {response.length > 0 ? (
                 <Product productlist={response} />
               ) : (
