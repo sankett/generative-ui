@@ -98,8 +98,7 @@ export default function Home() {
             <option value="Gold price in India from Jan to Jun 2023 draw line chart">Gold price in India from Jan to Jun 2023 draw line chart</option>
             <option value="Population in India from Year 2010 to 2023 in billions draw bar chart">Population in India from Year 2010 to 2023 in billions draw bar chart</option>
             <option value="List out products for men\'s clothing">List out products for mens clothing</option>            
-            <option value="Show me products for jewelery">Show me products for jewelery</option>
-            <option value="Recipe of Pizza">Recipe of Pizza</option>
+            <option value="Show me products for jewelery">Show me products for jewelery</option>            
             <option value="Longest 5 rivers in world">Longest 5 rivers in world</option>  
             <option value="Get products for electronics">Get products for electronics</option>
             <option value="For women\'s clothing list all products">For womens clothing list all products</option>
