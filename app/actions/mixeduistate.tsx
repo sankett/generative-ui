@@ -52,17 +52,35 @@ export async function sendMessage1(input: string): Promise<ClientMessage> {
         parameters: z.object({
           value: z.string().describe('The value.'),
         }),
-        generate: async ({ value }) => {
-          console.log('value', value);
+        generate: async function* ({ value })  {
+          
           const response = await fetch(
             `https://fakestoreapi.com/products/category/${value}`
           ).then((res) => res.json());
+          
+          const arr = []
+          for await (const partialObject of response) {
+           
+            arr.push(partialObject)
+            
+            
+            yield (
+              <div> test
+              <Product productlist={arr} />
+              </div>
+            );
+          }
+                      
 
           return (
             <div>
               
-              {response.length > 0 ? (
-                <Product productlist={response} />
+              {arr.length > 0 ? (
+                
+                
+
+            <Product productlist={arr} />
+               
               ) : (
                 `No products found for ${value}`
               )}
